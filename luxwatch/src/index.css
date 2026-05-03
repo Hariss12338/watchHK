@@ -1,0 +1,218 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Custom scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: #D4A017; border-radius: 2px; }
+
+/* ── Base resets ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
+  background: #000;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #000;
+  color: #e8e0d0;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none; /* Custom cursor */
+}
+
+/* ── Custom cursor ── */
+.cursor {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #D4A017;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+  mix-blend-mode: difference;
+}
+
+.cursor-follower {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 160, 23, 0.5);
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: all 0.15s ease;
+}
+
+.cursor.hovered {
+  width: 30px;
+  height: 30px;
+  background: rgba(212, 160, 23, 0.3);
+}
+
+/* ── Section base ── */
+section {
+  position: relative;
+}
+
+/* ── Gold text utility ── */
+.text-gold-shimmer {
+  background: linear-gradient(90deg, #B8860B 0%, #F5C842 30%, #D4A017 50%, #F5C842 70%, #B8860B 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ── Glassmorphism card ── */
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(212, 160, 23, 0.15);
+  border-radius: 2px;
+}
+
+/* ── Gold line divider ── */
+.gold-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #D4A017, transparent);
+}
+
+/* ── Section reveal classes (GSAP targets) ── */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(80px);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-60px);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(60px);
+}
+
+.reveal-fade {
+  opacity: 0;
+}
+
+/* ── Noise texture overlay ── */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+}
+
+/* ── Three.js canvas ── */
+canvas {
+  display: block;
+}
+
+/* ── Nav link hover ── */
+.nav-link {
+  position: relative;
+  letter-spacing: 0.2em;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 1px;
+  background: #D4A017;
+  transition: width 0.4s ease;
+}
+
+.nav-link:hover::after { width: 100%; }
+
+/* ── CTA button ── */
+.btn-luxury {
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  transition: color 0.4s ease;
+}
+
+.btn-luxury::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #D4A017;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+.btn-luxury:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.btn-luxury:hover { color: #000; }
+
+.btn-luxury span { position: relative; z-index: 1; }
+
+/* ── Watch glow ── */
+.watch-glow {
+  filter: drop-shadow(0 0 60px rgba(212, 160, 23, 0.25));
+}
+
+/* ── Horizontal rule gold ── */
+hr.gold {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(212,160,23,0.6) 50%, transparent 100%);
+  margin: 0;
+}
+
+/* ── Stat number ── */
+.stat-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+}
+
+/* ── Marquee ── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee 30s linear infinite;
+  display: flex;
+  width: max-content;
+}
+
+/* ── Ambient light flicker ── */
+@keyframes ambientFlicker {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
